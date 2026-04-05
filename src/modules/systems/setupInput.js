@@ -9,7 +9,9 @@ const KEY_BINDINGS = {
   s: 'down',
 };
 
-export function setupInput(state, world, scene) {
+export function setupInput(state, world, scene, hud) {
+  hud?.setPaused?.(state.isPaused);
+
   const setKey = (event, value) => {
     const key = KEY_BINDINGS[event.key];
     if (key) {
@@ -27,6 +29,7 @@ export function setupInput(state, world, scene) {
         });
       }
 
+      hud?.setPaused?.(state.isPaused);
       return;
     }
 

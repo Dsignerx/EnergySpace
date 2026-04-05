@@ -46,6 +46,27 @@ canvas {
   overflow: hidden;
 }
 
+#pauseIndicator {
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 16px solid var(--neon-cyan);
+  filter: drop-shadow(0 0 8px var(--neon-cyan));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+#commandPanel.paused #pauseIndicator {
+  opacity: 1;
+  animation: pauseBlink 0.8s infinite ease-in-out;
+}
+
 #commandPanel.collapsed {
   height: 45px;
   padding-bottom: 8px;
@@ -168,5 +189,15 @@ canvas {
   }
   100% {
     box-shadow: 0 0 8px var(--neon-cyan);
+  }
+}
+
+@keyframes pauseBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
   }
 }

@@ -33,4 +33,5 @@ export const HUD_SELECTORS = {
   dockContent: '#dockContent',
   widgetToggle: '#widgetToggle',
   widgetContainer: '#widgetContainer',
+  pauseIndicator: '#pauseIndicator',
 };

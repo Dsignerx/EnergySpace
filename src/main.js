@@ -17,7 +17,7 @@ const world = {
   ...worldData,
 };
 
-setupInput(state, world, world.scene);
+setupInput(state, world, world.scene, hud);
 
 function renderFrame() {
   world.renderer.render(world.scene, world.camera);
