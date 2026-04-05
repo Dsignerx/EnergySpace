@@ -17,6 +17,7 @@ export function createGameState() {
     miniPlanets: [],
     landingLights: [],
     windowMaterials: [],
+    isPaused: false,
     keys: {
       left: false,
       right: false,
