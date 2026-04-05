@@ -180,6 +180,12 @@ canvas {
   box-shadow: 0 0 10px var(--neon-cyan);
 }
 
+.widgetBtn.active {
+  background: rgba(0, 255, 255, 0.35);
+  box-shadow: 0 0 16px var(--neon-cyan);
+  border-color: #b6ffff;
+}
+
 @keyframes dockPulse {
   0% {
     box-shadow: 0 0 8px var(--neon-cyan);
