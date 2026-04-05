@@ -10,6 +10,7 @@ export function setupHud() {
     dockContent: document.querySelector(HUD_SELECTORS.dockContent),
     widgetToggle: document.querySelector(HUD_SELECTORS.widgetToggle),
     widgetContainer: document.querySelector(HUD_SELECTORS.widgetContainer),
+    pauseIndicator: document.querySelector(HUD_SELECTORS.pauseIndicator),
   };
 
   elements.toggleDock?.addEventListener('click', () => {
@@ -25,6 +26,15 @@ export function setupHud() {
     }
   });
 
+
+  const setPaused = (isPaused) => {
+    elements.commandPanel?.classList.toggle('paused', isPaused);
+
+    if (elements.pauseIndicator) {
+      elements.pauseIndicator.setAttribute('aria-hidden', String(!isPaused));
+    }
+  };
+
   elements.widgetToggle?.addEventListener('click', () => {
     elements.widgetContainer?.classList.toggle('active');
 
@@ -35,5 +45,8 @@ export function setupHud() {
     }
   });
 
-  return elements;
+  return {
+    ...elements,
+    setPaused,
+  };
 }

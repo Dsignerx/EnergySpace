@@ -240,6 +240,10 @@ function updateRefuelAndGravity(state, world) {
 }
 
 export function updateGame({ state, world, hud }) {
+  if (state.isPaused) {
+    return;
+  }
+
   updateSkyByTime(world.scene, world.galaxy);
   updateBullets(world.scene, state);
   updateShip(state, world, hud);

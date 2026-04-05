@@ -9,7 +9,9 @@ const KEY_BINDINGS = {
   s: 'down',
 };
 
-export function setupInput(state, world, scene) {
+export function setupInput(state, world, scene, hud) {
+  hud?.setPaused?.(state.isPaused);
+
   const setKey = (event, value) => {
     const key = KEY_BINDINGS[event.key];
     if (key) {
@@ -17,11 +19,26 @@ export function setupInput(state, world, scene) {
     }
   };
 
-  window.addEventListener('keydown', (event) => setKey(event, true));
+  window.addEventListener('keydown', (event) => {
+    if (event.key.toLowerCase() === 'p' && !event.repeat) {
+      state.isPaused = !state.isPaused;
+
+      if (state.isPaused) {
+        Object.keys(state.keys).forEach((key) => {
+          state.keys[key] = false;
+        });
+      }
+
+      hud?.setPaused?.(state.isPaused);
+      return;
+    }
+
+    setKey(event, true);
+  });
   window.addEventListener('keyup', (event) => setKey(event, false));
 
   window.addEventListener('click', () => {
-    if (state.ammo <= 0) {
+    if (state.isPaused || state.ammo <= 0) {
       return;
     }
 
