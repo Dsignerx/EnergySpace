@@ -6,6 +6,8 @@ export function createGameState() {
     fuel: 1,
     pulseTime: 0,
     ammo: 15,
+    selectedPower: 'bullet',
+    explosionCooldown: 0,
     quantumJump: false,
     quantumProgress: 0,
     currentUniverse: 'normal',

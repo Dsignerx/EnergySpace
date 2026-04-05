@@ -82,6 +82,15 @@ function updateMonsters(state, world) {
     const direction = new THREE.Vector3().subVectors(target, monster.position).normalize();
     monster.position.add(direction.multiplyScalar(0.03 + monster.speedOffset));
 
+    if (monster.userData.knockback) {
+      monster.position.add(monster.userData.knockback);
+      monster.userData.knockback.multiplyScalar(0.9);
+
+      if (monster.userData.knockback.lengthSq() < 0.0001) {
+        monster.userData.knockback.set(0, 0, 0);
+      }
+    }
+
     if (monster.position.distanceTo(world.ship.position) < MONSTER_CONFIG.drainDistance) {
       state.fuel = Math.max(0, state.fuel - 0.005);
     }
@@ -243,6 +252,8 @@ export function updateGame({ state, world, hud }) {
   if (state.isPaused) {
     return;
   }
+
+  state.explosionCooldown = Math.max(0, state.explosionCooldown - 1 / 60);
 
   updateSkyByTime(world.scene, world.galaxy);
   updateBullets(world.scene, state);
