@@ -46,27 +46,6 @@ canvas {
   overflow: hidden;
 }
 
-#pauseIndicator {
-  position: absolute;
-  left: -16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  border-right: 16px solid var(--neon-cyan);
-  filter: drop-shadow(0 0 8px var(--neon-cyan));
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-#commandPanel.paused #pauseIndicator {
-  opacity: 1;
-  animation: pauseBlink 0.8s infinite ease-in-out;
-}
-
 #commandPanel.collapsed {
   height: 45px;
   padding-bottom: 8px;
@@ -165,7 +144,7 @@ canvas {
 }
 
 .widgetBtn {
-  width: 100%;
+  width: 25%;
   padding: 10px;
   margin-top: 8px;
   background: rgba(0, 255, 255, 0.1);
@@ -180,12 +159,6 @@ canvas {
   box-shadow: 0 0 10px var(--neon-cyan);
 }
 
-.widgetBtn.active {
-  background: rgba(0, 255, 255, 0.35);
-  box-shadow: 0 0 16px var(--neon-cyan);
-  border-color: #b6ffff;
-}
-
 @keyframes dockPulse {
   0% {
     box-shadow: 0 0 8px var(--neon-cyan);
@@ -195,15 +168,5 @@ canvas {
   }
   100% {
     box-shadow: 0 0 8px var(--neon-cyan);
-  }
-}
-
-@keyframes pauseBlink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.35;
   }
 }
