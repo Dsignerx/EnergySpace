@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: black;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+#hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
+  z-index: 10;
+}
+
+.panel {
+  position: absolute;
+  background: rgba(206, 205, 205, 0.3);
+  border: 1px solid #00ffff;
+  padding: 12px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.controls {
+  bottom: 20px;
+  left: 20px;
+}
+
+.fuel {
+  bottom: 20px;
+  right: 20px;
+}
+
+.fuel-bar {
+  width: 150px;
+  height: 10px;
+  border: 1px solid #00ffff;
+  margin-top: 5px;
+}
+
+#fuelLevel {
+  height: 100%;
+  width: 100%;
+  background: #00ff15;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: 0;
+}
+

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Nave Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    /* ===== HUD ===== */
+
+    #hud {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      color: #00ffff;
+      z-index: 100;
+    }
+
+    .panel {
+      position: absolute;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid #00ffff;
+      padding: 12px 14px;
+      box-shadow: 0 0 15px #00ffff;
+      backdrop-filter: blur(6px);
+      border-radius: 6px;
+    }
+
+    .controls {
+      bottom: 20px;
+      left: 20px;
+    }
+
+    .fuel {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .fuel-bar {
+      width: 160px;
+      height: 10px;
+      border: 1px solid #00ffff;
+      margin-top: 6px;
+    }
+
+    #fuelLevel {
+      width: 100%;
+      height: 100%;
+      background: #00ffff;
+      box-shadow: 0 0 8px #00ffff;
+    }
+
+    #commandPanel {
+  bottom: 20px;
+  left: 20px;
+  position: absolute;
+  width: 220px;
+  transition: height 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
+  
+}
+
+#commandPanel.collapsed {
+  height: 40px;
+  padding-bottom: 0;
+  
+}
+
+#toggleDock {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #00ffff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.panel {
+  pointer-events: auto;
+}
+
+#commandPanel.collapsed #toggleDock {
+  position: relative;
+  top: 0;
+  right: 0;
+  display: block;
+  margin: 0 auto;
+}
+
+@keyframes dockPulse {
+  0% { box-shadow: 0 0 8px #00ffff; }
+  50% { box-shadow: 0 0 18px #00ffff; }
+  100% { box-shadow: 0 0 8px #00ffff; }
+}
+
+#commandPanel.collapsed {
+  height: 45px;
+  padding-bottom: 8px;
+  animation: dockPulse 1.8s infinite ease-in-out;
+}
+
+#commandPanel.collapsed #toggleDock {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#miniMap {
+  width: 180px;
+  height: 120px;
+  margin-top: 8px;
+  border: 1px solid #00ffff;
+  box-shadow: 0 0 10px #00ffff inset;
+  background: black;
+}
+
+#miniMap {
+  border: 1px solid #00ffff;
+  box-shadow: 0 0 15px #00ffff;
+  border-radius: 6px;
+}
+
+#miniMap canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#miniMenu {
+  position: fixed;
+  bottom: 150px;
+  left: 100px;
+  width: 180px;
+  z-index: 9999; /* CLAVE */
+}
+
+/*WIDGETS*/
+
+#widgetToggle {
+  cursor: pointer;
+  text-align: center;
+  color: #00ffff;
+  font-size: 18px;
+  margin: 10px 0;
+  transition: 0.3s;
+}
+
+#widgetToggle:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 10px #00ffff;
+}
+
+#widgetContainer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  opacity: 0;
+}
+
+#widgetContainer.active {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.widgetBtn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  background: rgba(0,255,255,0.1);
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.widgetBtn:hover {
+  background: rgba(0,255,255,0.3);
+  box-shadow: 0 0 10px #00ffff;
+}
+
+
+
+  
+  </style>
+</head>
+
+<body>
+
+  <div id="hud">
+
+  <div class="panel" id="commandPanel">
+  <button id="toggleDock">—</button>
+
+  <div id="miniMenu">
+
+    <div id="miniToggle">▲</div>
+  
+  
+<div id="widgetContainer">
+  <button class="widgetBtn">🔫 Ataque Simple +10</button>
+</div>
+  
+  </div>
+
+  
+
+  <div id="dockContent">
+    <h3>CONTROLES</h3>
+    <p>Direccionales <br> ← ↑ ↓ →</p>
+    <p>W / Arriba</p>
+    <p>S / Abajo</p>
+
+    <hr>
+
+    <h3>ENERGÍA</h3>
+    <div class="fuel-bar">
+      <div id="fuelLevel"></div>
+    </div>
+    <span id="fuelText">100%</span>
+
+    <hr>
+
+    <h3>MAPA</h3>
+    <div id="miniMap" style="
+    width: 180px;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+  "></div>
+
+  </div>
+</div>
+
+
+  </div>
+  <div id="miniMapContainer"></div>
+  <script type="module" src="/src/main.js"></script>
+
+</body>
+</html>
