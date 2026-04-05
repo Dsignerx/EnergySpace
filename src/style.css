@@ -1,12 +1,21 @@
+:root {
+  --neon-cyan: #00ffff;
+  --panel-bg: rgba(0, 0, 0, 0.45);
+}
+
+html,
 body {
   margin: 0;
+  padding: 0;
   overflow: hidden;
   background: black;
+  font-family: 'Orbitron', sans-serif;
 }
 
 canvas {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: 0;
 }
 
@@ -14,58 +23,150 @@ canvas {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  z-index: 10;
+  color: var(--neon-cyan);
+  z-index: 100;
 }
 
 .panel {
   position: absolute;
-  background: rgba(206, 205, 205, 0.3);
-  border: 1px solid #00ffff;
-  padding: 12px;
+  background: var(--panel-bg);
+  border: 1px solid var(--neon-cyan);
+  padding: 12px 14px;
+  box-shadow: 0 0 15px var(--neon-cyan);
   backdrop-filter: blur(6px);
-  box-shadow: 0 0 10px #00ffff;
+  border-radius: 6px;
+  pointer-events: auto;
 }
 
-.controls {
+#commandPanel {
   bottom: 20px;
   left: 20px;
+  width: 220px;
+  transition: height 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
 }
 
-.fuel {
-  bottom: 20px;
-  right: 20px;
+#commandPanel.collapsed {
+  height: 45px;
+  padding-bottom: 8px;
+  animation: dockPulse 1.8s infinite ease-in-out;
+}
+
+#toggleDock {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: var(--neon-cyan);
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+}
+
+#commandPanel.collapsed #toggleDock {
+  position: relative;
+  top: 0;
+  right: 0;
+  display: block;
+  margin: 0 auto;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#miniMenu {
+  position: fixed;
+  bottom: 150px;
+  left: 100px;
+  width: 180px;
+  z-index: 9999;
 }
 
 .fuel-bar {
-  width: 150px;
+  width: 160px;
   height: 10px;
-  border: 1px solid #00ffff;
-  margin-top: 5px;
+  border: 1px solid var(--neon-cyan);
+  margin-top: 6px;
 }
 
 #fuelLevel {
-  height: 100%;
   width: 100%;
-  background: #00ff15;
+  height: 100%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan);
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+#miniMap {
+  width: 180px;
+  height: 120px;
+  margin-top: 8px;
+  position: relative;
   overflow: hidden;
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 15px var(--neon-cyan);
+  border-radius: 6px;
   background: black;
 }
 
-canvas {
-  position: fixed;
+#miniMap canvas {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: block;
-  z-index: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
+#widgetToggle {
+  cursor: pointer;
+  text-align: center;
+  color: var(--neon-cyan);
+  font-size: 18px;
+  margin: 10px 0;
+  transition: 0.3s;
+}
+
+#widgetToggle:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+#widgetContainer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  opacity: 0;
+}
+
+#widgetContainer.active {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.widgetBtn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.widgetBtn:hover {
+  background: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+@keyframes dockPulse {
+  0% {
+    box-shadow: 0 0 8px var(--neon-cyan);
+  }
+  50% {
+    box-shadow: 0 0 18px var(--neon-cyan);
+  }
+  100% {
+    box-shadow: 0 0 8px var(--neon-cyan);
+  }
+}
